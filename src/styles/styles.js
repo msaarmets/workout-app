@@ -1,0 +1,45 @@
+import { StyleSheet } from "react-native";
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    alignItems: "center",
+    justifyContent: "center"
+  },
+  inputOuter: {
+    borderWidth: 1,
+    borderColor: "gray",
+    borderTopLeftRadius: 40,
+    borderTopRightRadius: 40,
+    borderBottomLeftRadius: 40,
+    borderBottomRightRadius: 40,
+    /* width: 300, */
+    padding: 0
+  },
+  input: {
+    color: "gray",
+    justifyContent: "center",
+    alignItems: "stretch",
+    fontSize: 30
+  },
+  header: {
+    fontSize: 30,
+    color: "gray",
+    marginTop: 30,
+    textAlign: "center"
+  },
+  textCenter: {
+    alignItems: "center",
+    justifyContent: "center"
+  },
+  text: {
+    fontSize: 20,
+    marginLeft: 10
+  },
+  errorText: {
+    fontSize: 16,
+    color: "#cc0000"
+  }
+});
+
+export default styles;

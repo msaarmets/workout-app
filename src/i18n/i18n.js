@@ -14,7 +14,7 @@ const et_EE = estonian;
 const en_US = english;
 
 i18n.fallbacks = true;
-i18n.debug = true;
+//i18n.debug = true;
 i18n.translations = { en_US, et_EE };
 i18n.locale = locale;
 
