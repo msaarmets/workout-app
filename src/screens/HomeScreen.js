@@ -43,7 +43,10 @@ class HomeScreen extends Component {
           />
           <Text style={[styles.input, { marginRight: 20 }]}>%</Text>
         </View>
-        <Button title={i18n.t("Next")} />
+        <Button
+          title={i18n.t("Next")}
+          onPress={() => this.props.navigation.navigate("WorkoutScreen")}
+        />
       </View>
     );
   }
