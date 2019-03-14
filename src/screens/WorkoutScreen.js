@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { Text, View, ActivityIndicator } from "react-native";
+import { KeepAwake } from "expo";
 import i18n from "../i18n/i18n";
 import styles from "../styles/styles";
 import globals from "../globals";
@@ -54,7 +55,8 @@ class WorkoutScreen extends Component {
     } else if (this.state.rest && this.state.timeLeft >= 0) {
       return (
         <View style={styles.container}>
-          <Text style={styles.header}>
+          <KeepAwake />
+          <Text style={[styles.header, { fontSize: 24 }]}>
             {i18n.t("Prepare for next exercise")}...
           </Text>
           <Text style={styles.header}>
@@ -71,6 +73,7 @@ class WorkoutScreen extends Component {
     } else if (this.state.timeLeft >= 0) {
       return (
         <View style={styles.container}>
+          <KeepAwake />
           <Text style={styles.header}>{i18n.t(this.state.workout)}</Text>
           <Counter time={this.state.timeLeft} />
           <Text style={styles.text}>
