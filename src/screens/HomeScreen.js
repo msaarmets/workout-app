@@ -1,5 +1,6 @@
 import React, { Component } from "react";
-import { Text, View, TextInput, Button } from "react-native";
+import { Text, View, TextInput, KeyboardAvoidingView } from "react-native";
+import { Button } from "react-native-elements";
 import i18n from "../i18n/i18n";
 import styles from "../styles/styles";
 import globals from "../globals";
@@ -16,7 +17,7 @@ class HomeScreen extends Component {
 
   render() {
     return (
-      <View style={styles.container}>
+      <KeyboardAvoidingView style={styles.container} behavior="padding" enabled>
         <Text style={[styles.header, { marginBottom: 30 }]}>
           {i18n.t("Please choose difficulty level")}
         </Text>
@@ -46,8 +47,9 @@ class HomeScreen extends Component {
         <Button
           title={i18n.t("Next")}
           onPress={() => this.props.navigation.navigate("WorkoutScreen")}
+          buttonStyle={styles.button}
         />
-      </View>
+      </KeyboardAvoidingView>
     );
   }
 

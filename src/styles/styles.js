@@ -33,12 +33,17 @@ const styles = StyleSheet.create({
     justifyContent: "center"
   },
   text: {
-    fontSize: 20,
-    marginLeft: 10
+    fontSize: 20
   },
   errorText: {
     fontSize: 16,
     color: "#cc0000"
+  },
+  button: {
+    paddingLeft: 30,
+    paddingRight: 30,
+    paddingTop: 10,
+    paddingBottom: 10
   }
 });
 
