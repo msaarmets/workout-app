@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Text, View, ActivityIndicator } from "react-native";
-import { KeepAwake } from "expo";
+import { KeepAwake, Audio } from "expo";
 import i18n from "../i18n/i18n";
 import styles from "../styles/styles";
 import globals from "../globals";
@@ -20,13 +20,17 @@ class WorkoutScreen extends Component {
       rest: false
     };
     this.interval;
+    this.sound;
     this.handleWorkout = this.handleWorkout.bind(this);
     this.initInterval = this.initInterval.bind(this);
     this.withDifficulty = this.withDifficulty.bind(this);
     this.handleRest = this.handleRest.bind(this);
+    this.loadSound = this.loadSound.bind(this);
+    this.playSound = this.playSound.bind(this);
   }
 
   componentWillMount() {
+    this.loadSound();
     // Load first element from workouts list
     this.setState({
       workout: WorkoutsList[0].name,
@@ -64,7 +68,7 @@ class WorkoutScreen extends Component {
               WorkoutsList[this.state.workoutCount].name
             )}`}
           </Text>
-          <Counter time={this.state.timeLeft} />
+          <Counter time={this.state.timeLeft} playSound={this.playSound} />
           <Text style={styles.text}>
             {this.state.workoutCount}/{this.state.totalCount}
           </Text>
@@ -75,7 +79,7 @@ class WorkoutScreen extends Component {
         <View style={styles.container}>
           <KeepAwake />
           <Text style={styles.header}>{i18n.t(this.state.workout)}</Text>
-          <Counter time={this.state.timeLeft} />
+          <Counter time={this.state.timeLeft} playSound={this.playSound} />
           <Text style={styles.text}>
             {this.state.workoutCount}/{this.state.totalCount}
           </Text>
@@ -158,6 +162,25 @@ class WorkoutScreen extends Component {
       this.setState({ workoutFinished: true });
     }
   }
+
+  loadSound = async () => {
+    const soundObject = new Audio.Sound();
+    try {
+      await soundObject.loadAsync(require("../../assets/beep-select.wav"));
+      this.sound = soundObject;
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  playSound = async () => {
+    try {
+      await this.sound.setPositionAsync(0);
+      await this.sound.playAsync();
+    } catch (error) {
+      console.log(error);
+    }
+  };
 }
 
 export default WorkoutScreen;
