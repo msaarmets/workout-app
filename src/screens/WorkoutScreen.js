@@ -136,10 +136,17 @@ class WorkoutScreen extends Component {
 
   handleRest(){
     // Switch rest value and set timer to 10 seconds
-    this.setState({
-      rest: !this.state.rest,
-      timeLeft: 10
-    })
+      if (this.state.workoutCount != this.state.totalCount) {
+        this.setState({
+          rest: !this.state.rest,
+          timeLeft: 10
+        })
+      }
+      // After the last element is handled
+      else {
+        clearInterval(this.interval);
+        this.setState({ workoutFinished: true });
+      }    
   }
 }
 
