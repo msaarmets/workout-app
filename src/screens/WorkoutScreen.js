@@ -51,17 +51,24 @@ class WorkoutScreen extends Component {
           <Icon name="trophy" type="font-awesome" color="#517fa4" size={200} />
         </View>
       );
-    } 
-    else if(this.state.rest && this.state.timeLeft >= 0){
-      return(
+    } else if (this.state.rest && this.state.timeLeft >= 0) {
+      return (
         <View style={styles.container}>
-        <Text style={styles.header}>{i18n.t("Prepare for next exercise")}...</Text>
-        <Counter time={this.state.timeLeft}/>
+          <Text style={styles.header}>
+            {i18n.t("Prepare for next exercise")}...
+          </Text>
+          <Text style={styles.header}>
+            {`${i18n.t("Next excercise")}: ${i18n.t(
+              WorkoutsList[this.state.workoutCount].name
+            )}`}
+          </Text>
+          <Counter time={this.state.timeLeft} />
+          <Text style={styles.text}>
+            {this.state.workoutCount}/{this.state.totalCount}
+          </Text>
         </View>
-      )
-    }
-    
-    else if (this.state.timeLeft >= 0) {
+      );
+    } else if (this.state.timeLeft >= 0) {
       return (
         <View style={styles.container}>
           <Text style={styles.header}>{i18n.t(this.state.workout)}</Text>
@@ -134,19 +141,19 @@ class WorkoutScreen extends Component {
     return calculatedTime;
   }
 
-  handleRest(){
+  handleRest() {
     // Switch rest value and set timer to 10 seconds
-      if (this.state.workoutCount != this.state.totalCount) {
-        this.setState({
-          rest: !this.state.rest,
-          timeLeft: 10
-        })
-      }
-      // After the last element is handled
-      else {
-        clearInterval(this.interval);
-        this.setState({ workoutFinished: true });
-      }    
+    if (this.state.workoutCount != this.state.totalCount) {
+      this.setState({
+        rest: !this.state.rest,
+        timeLeft: 10
+      });
+    }
+    // After the last element is handled
+    else {
+      clearInterval(this.interval);
+      this.setState({ workoutFinished: true });
+    }
   }
 }
 
