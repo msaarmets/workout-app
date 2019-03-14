@@ -54,7 +54,6 @@ class HomeScreen extends Component {
   }
 
   changeLevel(e) {
-    console.log(e);
     this.setState({
       level: e
     });

@@ -15,12 +15,14 @@ class WorkoutScreen extends Component {
       workout: "",
       workoutCount: 0,
       totalCount: 0,
-      workoutFinished: false
+      workoutFinished: false,
+      rest: false
     };
     this.interval;
     this.handleWorkout = this.handleWorkout.bind(this);
     this.initInterval = this.initInterval.bind(this);
     this.withDifficulty = this.withDifficulty.bind(this);
+    this.handleRest = this.handleRest.bind(this);
   }
 
   componentWillMount() {
@@ -49,7 +51,17 @@ class WorkoutScreen extends Component {
           <Icon name="trophy" type="font-awesome" color="#517fa4" size={200} />
         </View>
       );
-    } else if (this.state.timeLeft >= 0) {
+    } 
+    else if(this.state.rest && this.state.timeLeft >= 0){
+      return(
+        <View style={styles.container}>
+        <Text style={styles.header}>{i18n.t("Prepare for next exercise")}...</Text>
+        <Counter time={this.state.timeLeft}/>
+        </View>
+      )
+    }
+    
+    else if (this.state.timeLeft >= 0) {
       return (
         <View style={styles.container}>
           <Text style={styles.header}>{i18n.t(this.state.workout)}</Text>
@@ -87,7 +99,11 @@ class WorkoutScreen extends Component {
   }
 
   handleWorkout() {
-    if (this.state.timeLeft < 0) {
+    // Switch rest value
+    const rest = !this.state.rest;
+    this.handleRest();
+
+    if (!rest) {
       // Select the next workout from list
       const workout = WorkoutsList[this.state.workoutCount];
       if (workout) {
@@ -116,6 +132,14 @@ class WorkoutScreen extends Component {
   withDifficulty(time) {
     const calculatedTime = Math.ceil((time * globals.level) / 100);
     return calculatedTime;
+  }
+
+  handleRest(){
+    // Switch rest value and set timer to 10 seconds
+    this.setState({
+      rest: !this.state.rest,
+      timeLeft: 10
+    })
   }
 }
 
